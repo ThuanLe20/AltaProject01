@@ -1,17 +1,18 @@
-﻿using Project01.Entity;
+﻿using Project01.DTO;
+using Project01.Entity;
 
 namespace Project01.Interface
 {
     public interface IClassRepository
     {
-        IEnumerable<Class> GetAll();
-        Class GetById(int C_Id);
+        List<ClassDTO> GetAll();
+        ClassDTO GetById(int C_Id);
 
-        void Insert(Class classes);
+        bool Insert(ClassDTO classes);
 
-        void Update(Class classes);
+        bool Update(ClassDTO classes);
 
-        void Delete(int C_Id);
+        bool Delete(int C_Id);
 
         void Save();
     }

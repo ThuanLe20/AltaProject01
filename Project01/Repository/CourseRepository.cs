@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Project01.DTO;
 using Project01.EF;
 using Project01.Entity;
@@ -7,50 +6,50 @@ using Project01.Interface;
 
 namespace Project01.Repository
 {
-    public class ClassRepository : IClassRepository
+    public class CourseRepository : ICourseRepository
     {
         private readonly IMapper cmap;
         private readonly ProjectDbContext _context;
 
-        public ClassRepository(ProjectDbContext context, IMapper mapper)
+        public CourseRepository(ProjectDbContext context, IMapper mapper)
         {
             _context = context;
             cmap = mapper;
         }
 
-        public bool Delete(int C_Id)
+        public bool Delete(int CR_Id)
         {
-            var delete = _context.Classes.Find(C_Id);
+            var delete = _context.Courses.Find(CR_Id);
             if (delete == null)
             {
                 return false;
             }
-            _context.Classes.Remove(delete);
+            _context.Courses.Remove(delete);
             return true;
         }
 
-        public List<ClassDTO> GetAll()
+        public List<CourseDTO> GetAll()
         {
-            var list = _context.Classes.ToList();
-            return cmap.Map<List<ClassDTO>>(list);
+            var list = _context.Courses.ToList();
+            return cmap.Map<List<CourseDTO>>(list);
         }
 
-        public ClassDTO GetById(int C_Id)
+        public CourseDTO GetById(int CR_Id)
         {
-            var id = _context.Classes.Find(C_Id);
+            var id = _context.Courses.Find(CR_Id);
             if (id == null)
             {
                 return null;
             }
-            return cmap.Map<ClassDTO>(id);
+            return cmap.Map<CourseDTO>(id);
         }
 
-        public bool Insert(ClassDTO classes)
+        public bool Insert(CourseDTO course)
         {
-            var insert = _context.Classes.Find(classes.C_Id);
+            var insert = _context.Courses.Find(course.CR_Id);
             if (insert == null)
             {
-                _context.Classes.Add(cmap.Map<Class>(classes));
+                _context.Courses.Add(cmap.Map<Course>(course));
                 return true;
             }
             return false;
@@ -61,12 +60,12 @@ namespace Project01.Repository
             _context.SaveChanges();
         }
 
-        public bool Update(ClassDTO classes)
+        public bool Update(CourseDTO course)
         {
-            var update = _context.Classes.Find(classes.C_Id);
+            var update = _context.Courses.Find(course.CR_Id);
             if (update != null)
             {
-                _context.Classes.Update(cmap.Map(classes, update));
+                _context.Courses.Update(cmap.Map(course, update));
                 return true;
             }
             return false;
